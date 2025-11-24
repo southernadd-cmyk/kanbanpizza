@@ -25,10 +25,14 @@ MAX_PLAYERS = 5  # Maximum players per room
 shutdown_flag = False
 
 db_password = os.environ.get("dbpass")
-if db_password:
-    app.config['SQLALCHEMY_DATABASE_URI'] = (
+"""if db_password:
+"""
+
+app.config['SQLALCHEMY_DATABASE_URI'] = (
         f'postgresql://neondb_owner:{db_password}@ep-misty-unit-a2gfnnq1-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require'
     )
+
+"""
 else:
     db_path = os.path.join("/tmp", "high_scores.db")
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
@@ -43,7 +47,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
 }
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet', ping_timeout=60, ping_interval=25)
 db = SQLAlchemy(app)
-
+"""
 # PostgreSQL/SQLite model
 class HighScore(db.Model):
     __tablename__ = 'high_scores'
@@ -792,4 +796,5 @@ def search_engine_info():
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
+
 
