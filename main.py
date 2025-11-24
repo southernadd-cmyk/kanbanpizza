@@ -30,7 +30,9 @@ if db_password:
         f'postgresql://neondb_owner:{db_password}@ep-misty-unit-a2gfnnq1-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require'
     )
 else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///high_scores.db'
+    db_path = os.path.join("/tmp", "high_scores.db")
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 
 
@@ -790,3 +792,4 @@ def search_engine_info():
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
+
